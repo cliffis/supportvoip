@@ -1,0 +1,4 @@
+ <td><img src="http://10.0.248.8/foto/{{m.sAMAccountName}}.jpeg" Width="50" Height="50"></td>
+
+
+<td><іmg src="data:image/jpeg;base64,{{ m.thumbnailPhoto }}"/></td>

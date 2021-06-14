@@ -1,0 +1,390 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+
+<!--<form action="/dssconf" enctype="application/json" method="POST">-->
+    <div class="note">
+	<div class="note__content">
+		<h2 class="note__title"> Text title </h2>
+
+		<p class="note__body" style="width:200px; padding:5px;"> Text body </p>
+        <p class="note__body1" style="width:200px; padding:5px;"> Text body2121 </p>
+
+	</div>
+	<button class="actions" id="start_edit">Редактировать</button>
+</div>
+<!--    </form>-->
+<!--
+<form action="/dssconf" enctype="application/json" method="POST">
+
+
+     <input type="text" name="text" value="" requied placeholder="xx:xx:xx:xx:xx:xx" />
+
+    <input type="hidden" name="index" value="1">
+    <input type="submit" class="btn btn-dark" value="Нажать 1">
+</form>
+
+<input type="hidden" name="index" value="1">
+<button type="button" class="btn btn-dark" onclick="process(1);">Нажать 1</button>
+<button type="button" class="btn btn-dark" onclick="process(2);">Нажать 2</button>
+-->
+
+<form action="/dssconf" method="post" class="form-contact">
+
+<table>
+<tr><td>
+<p><label>Model: </label></td><td><select name="model" value="" style='width: 100%;'>
+    <option selected disabled>Select a model phone</option>
+    <option value="SIP-19">Yealink SIP-19</option>
+    <option value="SIP-21">Yealink SIP-21</option>
+    <option value="SIP-23">Yealink SIP-23</option>
+</select></td></tr></p>
+
+<tr><td><p><label>MAC: </label></td><td> <input type="text" name="mac" value="" requied placeholder="xx:xx:xx:xx:xx:xx" /></td></tr>
+<tr><td><p><label>Number: </label></td><td> <input type="text" name="number" value="" requied placeholder="36XXX" /></td></tr>
+<tr><td><p><label>Employee ID number: </label></td><td> <input type="text" name="tabnumber" value="" requied placeholder="39800XXX" /></td></tr>
+<tr><td><p><label>Employee: </label></td><td> <input type="text" name="tabnumber" value="" requied placeholder="39800XXX" /></td></tr>
+
+
+
+
+
+<tr><td colspan="2" style="text-align:right">
+    <p>
+     <!--   <input type="reset" value="Очистить" />
+        <input type="submit" value="Отправить" /> -->
+    </p></td></tr>
+
+</table>
+
+<h1 align="center">DSS buttons on the phone</h1>
+<div class="container">
+    <div class="boxphone">
+        <div>
+<table class="dssconfphone">
+<th class="dssconfphone">Label</th><th>Number</th>
+
+<tr><td><p><label>Line 1: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 2: </label></td><td></td></tr>
+
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="{{read_dss_button[1][0]}}" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+
+<tr><td><p><label>Ext key 3: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 4: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 5: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 6: </label></td><td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+
+    </table>
+</div>
+<div>
+<table class="dssconfphone">
+
+<th>Label</th><th>Number</th>
+<tr><td><p><label>Ext key 12: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 13: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 14: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 15: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 16: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 17: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+
+    </table>
+</div>
+<div>
+<table class="dssconfphone">
+
+<th>Label</th><th>Number</th>
+<tr><td><p><label>Ext key 18: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 19: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 20: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 21: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 22: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 23: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+
+    </table>
+</div>
+
+<div>
+<table class="dssconfphone">
+
+<th>Label</th><th>Number</th>
+<tr><td><p><label>Ext key 24: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 25: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 26: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 27: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 28: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 29: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+
+    </table>
+</div>
+
+<div>
+<table class="dssconfphone">
+
+<th class="dssconfphone">Label</th><th>Number</th>
+<tr><td><p><label>Ext key 7: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 8: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 9: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 10: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Ext key 11: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+<tr><td><p><label>Hide: </label></td><td></td></tr>
+<tr><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input class="dssconfphone" type="text" name="dssfio" value="" requied placeholder="" /></td></tr>
+
+    </table>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<h1>DSS buttons on the console 1</h1>
+
+<div class="container">
+    <div class="box">
+        <div>
+<h3 align="center">Screen page 1</h3>
+<table class="dssconf">
+
+<th>Key left side</th><th>Label</th><th>Number</th><th>Key right side</th>
+
+<tr><td><p><label>Ext key 1: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 2: </label></td></tr>
+<tr><td><p><label>Ext key 3: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 4: </label></td></tr>
+<tr><td><p><label>Ext key 5: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 6: </label></td></tr>
+<tr><td><p><label>Ext key 7: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 8: </label></td></tr>
+<tr><td><p><label>Ext key 9: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 10: </label></td></tr>
+<tr><td><p><label>Ext key 11: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 12: </label></td></tr>
+<tr><td><p><label>Ext key 13: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 14: </label></td></tr>
+<tr><td><p><label>Ext key 15: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 16: </label></td></tr>
+<tr><td><p><label>Ext key 17: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 18: </label></td></tr>
+<tr><td><p><label>Ext key 19: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 20: </label></td></tr>
+
+    </table>
+</div>
+
+
+<div>
+<h3 align="center">Screen page 2</h3>
+<table class="dssconf">
+
+<th>Key left side</th><th>Label</th><th>Number</th><th>Key right side</th>
+<tr><td><p><label>Ext key 1: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 2: </label></td></tr>
+<tr><td><p><label>Ext key 3: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 4: </label></td></tr>
+<tr><td><p><label>Ext key 5: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 6: </label></td></tr>
+<tr><td><p><label>Ext key 7: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 8: </label></td></tr>
+<tr><td><p><label>Ext key 9: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 10: </label></td></tr>
+<tr><td><p><label>Ext key 11: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 12: </label></td></tr>
+<tr><td><p><label>Ext key 13: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 14: </label></td></tr>
+<tr><td><p><label>Ext key 15: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 16: </label></td></tr>
+<tr><td><p><label>Ext key 17: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 18: </label></td></tr>
+<tr><td><p><label>Ext key 19: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 20: </label></td></tr>
+
+
+
+
+</table>
+</div>
+       </div>
+    </div>
+
+
+
+
+
+
+
+
+<h1>DSS buttons on the console 2</h1>
+<div class="container">
+    <div class="box">
+        <div>
+<h3 align="center">Screen page 1</h3>
+<table class="dssconf">
+<th>Key left side</th><th>Label</th><th>Number</th><th>Key right side</th>
+
+<tr><td><p><label>Ext key 1: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 2: </label></td></tr>
+<tr><td><p><label>Ext key 3: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 4: </label></td></tr>
+<tr><td><p><label>Ext key 5: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 6: </label></td></tr>
+<tr><td><p><label>Ext key 7: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 8: </label></td></tr>
+<tr><td><p><label>Ext key 9: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 10: </label></td></tr>
+<tr><td><p><label>Ext key 11: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 12: </label></td></tr>
+<tr><td><p><label>Ext key 13: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 14: </label></td></tr>
+<tr><td><p><label>Ext key 15: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 16: </label></td></tr>
+<tr><td><p><label>Ext key 17: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 18: </label></td></tr>
+<tr><td><p><label>Ext key 19: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 20: </label></td></tr>
+
+    </table>
+</div>
+<div>
+<h3 align="center">Screen page 2</h3>
+<table class="dssconf">
+
+<th>Key left side</th><th>Label</th><th>Number</th><th>Key right side</th>
+<tr><td><p><label>Ext key 1: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 2: </label></td></tr>
+<tr><td><p><label>Ext key 3: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 4: </label></td></tr>
+<tr><td><p><label>Ext key 5: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 6: </label></td></tr>
+<tr><td><p><label>Ext key 7: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 8: </label></td></tr>
+<tr><td><p><label>Ext key 9: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 10: </label></td></tr>
+<tr><td><p><label>Ext key 11: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 12: </label></td></tr>
+<tr><td><p><label>Ext key 13: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 14: </label></td></tr>
+<tr><td><p><label>Ext key 15: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 16: </label></td></tr>
+<tr><td><p><label>Ext key 17: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 18: </label></td></tr>
+<tr><td><p><label>Ext key 19: </label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label></label></td></tr>
+<tr><td><p><label></label></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td> <input type="text" name="dssfio" value="" requied placeholder="" /></td><td><p><label>Ext key 20: </label></td></tr>
+
+
+
+
+</table>
+</div>
+       </div>
+    </div>
+
+</form>
+
+<script type="text/javascript">
+let start_edit = document.getElementById('start_edit');
+start_edit.addEventListener('click', edit_text_body);
+
+function edit_text_body() {
+    if (this.textContent == 'Редактировать') {
+		this.textContent = 'Сохранить';
+		}
+    let editable1 = document.getElementsByClassName('note__body');
+    let editable2 = '<input type="text" value="'+editable1[0].innerHTML+'"id="edit_current_text" name="index1" />';
+    let editable3 = document.getElementsByClassName('note__body1');
+    let editable4 = '<input type="text" value="'+editable3[0].innerHTML+'"id="edit_current_text1" name="text1" />';
+    editable1[0].innerHTML = '';
+    editable1[0].insertAdjacentHTML('afterBegin', editable2);
+    editable3[0].innerHTML = '';
+    editable3[0].insertAdjacentHTML('afterBegin', editable4);
+    start_edit.removeEventListener('click', edit_text_body);
+    start_edit.addEventListener('click', save_text_body);
+
+
+
+}
+
+function save_text_body() {
+    if (this.textContent == 'Сохранить') {
+		this.textContent = 'Редактировать';
+		}
+    let text1 = document.getElementById('edit_current_text');
+    let editable1 = document.getElementsByClassName('note__body');
+    editable1[0].innerHTML = text1.value;
+    var text1Value = text1.value;
+
+    let text3 = document.getElementById('edit_current_text1');
+    let editable3 = document.getElementsByClassName('note__body1');
+    editable3[0].innerHTML = text3.value;
+    var text2Value = text3.value;
+
+    $.ajax({
+    url: "/dssconf",
+    type: "POST",
+<!--    contentType:"application/json; charset=utf-8",-->
+    cache: false,
+
+    data: {
+        index : text1Value,
+        text : text2Value,
+        },
+
+    success: function (data) {
+        alert(data);
+    },
+});
+
+
+
+    start_edit.removeEventListener('click', save_text_body);
+    start_edit.addEventListener('click', edit_text_body);
+
+
+
+
+
+
+
+
+}
+
+
+
+
+ </script>
+
+{% endblock %}

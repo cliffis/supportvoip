@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db_data:/var/lib/postgresql/data/dbdata
+    environment:
+
+  supportvoip:
+    supportvoip:
+      image: python:latest
+      container_name: postgres
+      ports:
+        - 5432:5432
+      volumes:
+        - ./

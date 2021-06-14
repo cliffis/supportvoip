@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+<hr>
+<h2>List</h2>
+<ul class="list-posts">
+<h3>All records: {{ return_list_len }}</h3>
+<!--
+<script type=text/javascript>
+			$(function() {
+			  $('a#process_input').bind('click', function() {
+				$.getJSON('/background_process', {
+				  proglang: $('input[name="proglang"]').val(),
+				}, function(data) {
+				  $("#result").text(data.result);
+				});
+				return false;
+			  });
+			});
+</script>
+-->
+		<div class='container'>
+		<h3>Test</h3>
+			<form action="/phonebook" method="POST" id="signupform" style="padding: 10px;">
+                <input type="text" name="username" id="username" autocomplete="off"/>
+				<!--<input type=text size=5 name=proglang>
+				<a href=# id=process_input><button class='btn btn-default'>Find</button></a>-->
+                 <div id="msg"></div>
+                <h4 id='loading' style="display:none;"><img src="{{ url_for('static', filename='photo/none.jpeg') }}" Width="50" Height="50"/> Loading..</h4>
+			</form>
+		<p id=result></p>
+		</div>
+
+
+<table class="phonebook">
+<th>Photo</th><th>English Name</th><th>Russian Name</th><th>Ext. number</th><th>Mobile number</th><th>Mail</th><th>Position</th><th>Department</th>
+
+{% for m in return_list|sort(attribute='cn') %}
+<tr>
+
+    <td><img src="..//static/photo/{{m.sAMAccountName}}.jpeg" Width="50" Height="50"></td>
+    <td><label> {{m.cn}} </label></td>
+    <td><p><label> {{m.description[0]}} </label></td>
+
+    {% if m.telephoneNumber==[] %}
+        <td><p><label></label></td>
+    {% else %}
+        <td><a href="tel:{{m.telephoneNumber}}">{{m.telephoneNumber}}</a></td>
+    {% endif %}
+
+    {% if m.mobile==[] %}
+        <td><p><label></label></td>
+    {% else %}
+        <td><a href="tel:{{m.mobile}}">{{m.mobile}}</a></td>
+    {% endif %}
+
+    {% if m.mail==[] %}
+        <td><p><label></label></td>
+    {% else %}
+        <td><a href="mailto:{{m.mail}}">{{m.mail}}</a></td>
+    {% endif %}
+
+    {% if m.title==[] %}
+        <td><p><label></label></td>
+    {% else %}
+        <td><p><label> {{m.title}} </label></td>
+    {% endif %}
+
+    {% if m.department==[] %}
+        <td><p><label></label></td>
+    {% else %}
+        <td><p><label> {{m.department}} </label></td>
+    {% endif %}
+
+ <!--   <td><p><label> {{m.title}} </label></td>
+    <td><p><label> {{m.department}} </label></td>
+
+
+    {# <td><img src="{{m.phonebook_photo|b64decode}}"></td> #}
+
+-->
+</tr>
+{% endfor %}
+
+</table>
+
+{% for p in posts %}
+<li>
+<p class="title"><a href="{{ url_for('phonebook', alias=p.url)}}">{{p.title}}</a></p>
+<p class="annonce">{{ p.text[:50] | striptags  }}</p>
+
+</li>
+{% endfor %}
+</ul>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+   $("#username").on('input', function(e) {
+    $('#msg').hide();
+    $('#loading').show();
+    if ($('#username').val() == null || $('#username').val() == "") {
+     $('#msg').show();
+     $("#msg").html("Username is required field.").css("color", "red");
+    } else {
+     $.ajax({
+      type: "POST",
+      url: "/phonebook",
+      data: $('#signupform').serialize(),
+      dataType: "html",
+      cache: false,
+      success: function(msg) {
+       $('#msg').show();
+       $('#loading').hide();
+       $("#msg").html(msg);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+       $('#msg').show();
+       $('#loading').hide();
+       $("#msg").html(textStatus + " " + errorThrown);
+      }
+     });
+    }
+   });
+  });
+ </script>
+
+{% endblock %}
+

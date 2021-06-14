@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+
+<form action="/yealinkconf" method="post" class="form-contact">
+<div>
+<table>
+<tr><td>
+<p><label>Model: </label></td><td><select name="model" value="" style='width: 100%;'>
+    <option selected disabled>Select a model phone</option>
+    <option value="SIP-19">Yealink SIP-19</option>
+    <option value="SIP-21">Yealink SIP-21</option>
+    <option value="SIP-23">Yealink SIP-23</option>
+</select></td></tr></p>
+
+<tr><td><p><label>MAC: </label></td><td> <input type="text" name="mac" value="" requied placeholder="xx:xx:xx:xx:xx:xx" /></td></tr>
+<tr><td><p><label>Number: </label></td><td> <input type="text" name="number" value="" requied placeholder="36XXX" /></td></tr>
+<tr><td><p><label>Employee ID number: </label></td><td> <input type="text" name="tabnumber" value="" requied placeholder="39800XXX" /></td></tr>
+<tr><td><p><label>Employee: </label></td><td> <input type="text" name="tabnumber" value="" requied placeholder="39800XXX" /></td></tr>
+
+<tr><td colspan="2" style="text-align:right">
+    <p>
+        <input type="reset" value="Очистить" />
+        <input type="submit" value="Отправить" />
+    </p></td></tr>
+
+</table>
+</div>
+<div>
+    <h3 style='margin-bottom: 60px;'></h3>
+
+    <h3 style='margin-bottom: 10px;'>History</h3>
+
+
+    <table class="logphone">
+        <th>Date</th><th>Model</th><th>MAC</th><th>Number</th><th>Employee ID number</th><th>Who did it</th>
+        {% for m in log_phone %}
+        <tr><td> {{m[5]}} </td><td> Yealink {{m[0]}} </td><td> {{m[1]}} </td><td> {{m[2]}} </td><td> {{m[3]}} </td><td> {{m[4]}} </td></tr>
+        {% endfor %}
+    </table>
+
+
+
+
+
+</div>
+</form>
+{% endblock %}

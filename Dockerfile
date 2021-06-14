@@ -1,0 +1,14 @@
+FROM python:3.6
+
+RUN mkdir -p /usr/src/app/
+WORKDIR /usr/src/app/
+
+COPY . /usr/src/app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 5000:80
+
+ENV TZ Europe/Budapest
+
+CMD ["python", "main.py"]
+
