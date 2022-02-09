@@ -5,18 +5,17 @@ import shutil
 
 from pg_db import insert_ad_users_new
 
-AD_SEARCH_TREE = "ou=ASE_HU,dc=ase-hu,dc=local"
-AD_SEARCH_TREE2 = "ou=Budapest,ou=ASE_HU,dc=ase-hu,dc=local"
-AD_SEARCH_TREE3 = "ou=Paks,ou=ASE_HU,dc=ase-hu,dc=local"
+AD_SEARCH_TREE = "ou=,dc=,dc=local"
+AD_SEARCH_TREE2 = "ou=,ou=,dc=,dc=local"
+AD_SEARCH_TREE3 = "ou=,ou=,dc=,dc=local"
 
 
 def ad_search_by_objectguid(tabnumber):
-    server = Server('10.45.0.9', get_info=ALL)
-    conn = Connection(server, user="ase-hu\\cucm_user", password="CvGs@tVm", auto_bind=True)
+    server = Server('10.45.10.9', get_info=ALL)
+    conn = Connection(server, user="hju\\cucm_user", password="@111111", auto_bind=True)
     print('LDAP Bind Successful.')
     print(tabnumber)
-    adFltr = '(&(sAMAccountName=' + tabnumber + ')(objectClass = person)(physicalDeliveryOfficeName=ASE_HU*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
-    # adFltr = '(&(sAMAccountName=' + tabnumber + ')(objectclass = person)(!(objectclass = computer))(!(ou=!ASE_Businesstrip_STAFF))(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'
+    adFltr = '(&(sAMAccountName=' + tabnumber + ')(objectClass = person)(physicalDeliveryOfficeName=*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
     conn.search(AD_SEARCH_TREE, adFltr, attributes=['sAMAccountName', 'description', 'cn', 'telephoneNumber', 'mobile', 'mail', 'title', 'department'])
     return_list = []
     for entry in conn.response:
@@ -32,20 +31,13 @@ def ad_search_by_objectguid(tabnumber):
 
 
 def ad_search_all():
-    server = Server('10.45.0.9', get_info=ALL)
-    conn = Connection(server, user="ase-hu\\cucm_user", password="CvGs@tVm", auto_bind=True)
+    server = Server('10.45.50.9', get_info=ALL)
+    conn = Connection(server, user="-\\", password="CvVm", auto_bind=True)
     print('LDAP Bind Successful.')
-    # adFltr = '(&(objectClass = person)(physicalDeliveryOfficeName=ASE_HU*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
-    adFltr = '(&(objectClass = person)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer))(company=Филиал АО ИК "АСЭ" в Венгрии))'
-    adFltrAP = '(&(objectClass = person)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer))(company=Филиал АО "Атомпроект" в Венгрии))'
-    # adFltr = '(&(objectclass = person)(!(objectclass = computer))(!(ou = !ASE_Businesstrip_STAFF))(!(ou = unknown))(!(ou = Service))(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'
-    # (physicalDeliveryOfficeName= *)
-    # adFltr = '(&(objectclass = person)(!(objectclass = computer))(!(distinguishedName = ou=!ASE_Businesstrip_STAFF,ou=Office_ASE,ou=Paks,ou=ASE_HU,dc=ase-hu,dc=local))(!(distinguishedName = ou=unknown,ou=Office_ASE,ou=Paks,ou=ASE_HU,dc=ase-hu,dc=local))(!(distinguishedName = ou=Service,ou=ASE_HU,dc=ase-hu,dc=local))(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'
-
-    # adFltr = '(&(objectclass = person)(distinguishedName = ou=... *,ou=Reception,ou=BankCenter,ou=Budapest,dc=ASE_HU,dc=ase-hu,dc=local))'.format()
-    # adFltr = '(&(objectclass = person)(!(objectclass = computer))(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'{0}*
-
-    # adFltr = '(&(objectclass = person)(!(objectclass = computer))(!(memberOf=ou=!ASE_Businesstrip_STAFF,ou=Office_ASE,ou=Paks,ou=ASE_HU,dc=ase-hu,dc=local))(!(memberOf=ou=unknown,ou=Office_ASE,ou=Paks,ou=ASE_HU,dc=ase-hu,dc=local))(!(memberOf=ou=Service,ou=ASE_HU,dc=ase-hu,dc=local))(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'
+    # adFltr = '(&(objectClass = person)(physicalDeliveryOfficeName=*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
+    adFltr = '(&(objectClass = person)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer))(company=Филиал ))'
+    adFltrAP = '(&(objectClass = person)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer))(company=Филиал ))'
+  
     conn.search(AD_SEARCH_TREE2, adFltr, attributes=['sAMAccountName', 'description', 'cn', 'telephoneNumber', 'mobile', 'mail', 'title', 'department'])
     return_list_all = []
     for entry in conn.response:
@@ -80,29 +72,8 @@ def ad_search_all():
 
 
 def ad_login_users(adlogin, ldap_password):
-    # server = Server('10.45.0.9', get_info=ALL)
-#     # try:
-#         # conn = Connection(server, user="ase-hu\\seryakov", password="[htyDFV123", auto_bind=True)
-#     conn = Connection(server, user=adlogin, password=adpassword, auto_bind=True)
-#     print(conn)
-#     print('LDAP Bind Successful.')
-#     # except:
-#         # print(conn.status)
-#         print('LDAP Error.')
-#     # print('LDAP Bind Successful.')
-#     # adFltr = '(&(sAMAccountName=' + tabnumber + ')(objectClass = person)(physicalDeliveryOfficeName=ASE_HU*)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
-#     # # adFltr = '(&(sAMAccountName=' + tabnumber + ')(objectclass = person)(!(objectclass = computer))(!(ou=!ASE_Businesstrip_STAFF))(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'
-#     # conn.search(AD_SEARCH_TREE, adFltr, attributes=['sAMAccountName', 'description', 'cn', 'telephoneNumber', 'mobile', 'mail', 'title', 'department'])
-#     # return_list = []
-#     # for entry in conn.response:
-#     #     try:
-#     #         return_list.append(entry['attributes'])
-#     #     except KeyError:
-#     #         continue
-#     #
-#     # print(return_list)
-#     return
-    server = Server('10.45.0.9', get_info=ALL)
+
+    server = Server('10.45.50.9', get_info=ALL)
 
     connection = Connection(server,
                             user=adlogin,
@@ -113,12 +84,12 @@ def ad_login_users(adlogin, ldap_password):
 
 
 def ad_take_photo():
-    server = Server('10.45.0.9', get_info=ALL)
-    conn = Connection(server, user="ase-hu\\cucm_user", password="CvGs@tVm", auto_bind=True)
+    server = Server('10.45.50.9', get_info=ALL)
+    conn = Connection(server, user="\\", password="Cuuu", auto_bind=True)
     print('LDAP Bind Successful.')
     adFltr = '(&(objectClass = person)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
-    # adFltr = '(&(objectClass = person)(company=Филиал АО ИК "АСЭ" в Венгрии)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
-    # adFltrAP = '(&(objectClass = person)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer))(company=Филиал АО "Атомпроект" в Венгрии))'
+    # adFltr = '(&(objectClass = person)(company=Филиал  )(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer)))'
+    # adFltrAP = '(&(objectClass = person)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(!(objectClass = computer))(company=Филиал ))'
     conn.search(AD_SEARCH_TREE, adFltr, attributes=['thumbnailPhoto', 'sAMAccountName'])
     return_list_all = []
     for entry in conn.response:
@@ -149,7 +120,7 @@ def ad_take_photo():
             # # data = photo_encoded.replace(' ', '+')
             # imgdata = base64.b64decode(photo_encoded)
             # message = imgdata.decode('ascii')
-            # filename = conn.response[0].get('attributes', {}).get('sAMAccountName', '') + '.jpg'  # I assume you have a way of picking unique filenames
+            # filename = conn.response[0].get('attributes', {}).get('sAMAccountName', '') + '.jpg'  
             # with open(filename, 'wb') as f:
             #     f.write(message)
 
@@ -158,6 +129,3 @@ def ad_take_photo():
     return
 
 
-# ad_login_users("cucm_user", "CvGs@tVm")
-
-# ad_take_photo()
