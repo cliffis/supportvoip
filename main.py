@@ -49,19 +49,6 @@ def comet_do_work_handler(obj_response):
     resp = select_log_ami()
     obj_response.html('#progress', resp)
 
-    # for i in range(6):
-    #     width = '%spx' % (i * 80)
-    #     obj_response.css('#progress', 'width', width)
-    #     obj_response.html('#progress', width)
-    #
-    #     # Yielding tells Sijax to flush the data to the browser.
-    #     # This only works for Streaming functions (Comet or Upload)
-    #     # and would not work for normal Sijax functions
-    #     yield obj_response
-    #
-    #     if i != 5:
-    #         time.sleep(sleep_time)
-    # return resp
 
 
 @login_manager.user_loader
@@ -122,27 +109,15 @@ def phonebook():
 
         resp = ad_search_by_objectguid(userreq)
 
-        # print(url_for('phonebook'))
-        # phonebook1 = ad_search_by_objectGuid(str(39800083))
-        # phonebook1 = ad_search_all()
-        # phonebook_len = len(ad_search_all())
-        # print(phonebook1)
-        # resp.status_code = 200
         return resp
     else:
 
 
         print(url_for('phonebook'))
-        # phonebook1 = ad_search_by_objectGuid(str(39800083))
+
         phonebook1 = ad_search_all()
         phonebook_len = len(ad_search_all())
         print(phonebook1)
-
-
-        # photo_encoded = ad_search_all.photo_encoded()
-        # for x in ad_search_all.return_list():
-        #     print(x)
-        # print(ad_search_all)
         return render_template('phonebook.html', menu=menu, return_list=phonebook1, return_list_len=phonebook_len)
 
 
@@ -152,20 +127,14 @@ def phonebook():
 def user_check():
 
     print(url_for('user_check'))
-    # phonebook1 = ad_search_by_objectGuid(str(39800083))
     phonebook1 = ad_search_all()
     phonebook_len = len(ad_search_all())
     print(phonebook1)
 
     username = request.form['username']
     print(username)
-    # validate the received values
     if username and request.method == 'POST':
 
-        # cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
-        # cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
-        # row = cursor.fetchone()
         row = ad_search_by_objectguid('username')
         print(row)
 
@@ -182,12 +151,6 @@ def user_check():
         resp.status_code = 200
         return render_template('phonebook.html', menu=menu, return_list=phonebook1, return_list_len=phonebook_len, resp=resp)
 
-    # photo_encoded = ad_search_all.photo_encoded()
-    # for x in ad_search_all.return_list():
-    #     print(x)
-    # print(ad_search_all)
-    # return render_template('phonebook.html', menu=menu, return_list=phonebook1, return_list_len=phonebook_len)
-
 
 
 @app.route("/yealinkconf", methods=["POST", "GET"])
@@ -196,11 +159,8 @@ def yealinkconf():
     if request.method == 'POST':
         print(request.form)
         getscreen = getscreenyealink(request.form['mac'])
-        # ad_search_by_objectGuid(request.form['tabnumber'])
         create_mac(request.form['model'], request.form['mac'], request.form['number'], request.form['tabnumber'])
-        # create_mac(model=request.form['model'], mac=request.form['mac'], number=request.form['number'], tabnumber=request.form['tabnumber'])
-    # print(url_for('yealinkconf'))
-    # create_mac(model=model, mac=mac, number=number, tabnumber=tabnumber)
+
     log_phone = select_log_phone()
     print(log_phone)
     return render_template('yealinkconf.html', title="Yealink Create Configuration", menu=menu, log_phone=log_phone)
@@ -217,30 +177,9 @@ def dssconf():
         print('text')
         print(text)
 
-        # img = ImmutableMultiDict(indexid)
-        # print(request.form.getlist['text'])
-
         resp = jsonify('Data received')
         resp.status_code = 200
         return resp
-
-
-
-        # data = request.get_json(force=True, silent=True)
-        # print("Test")
-        # print(data)
-        # index = data["index"]
-        # print(index)
-
-        # read_dss_button = select_dss_phone()
-        # # print(request.form)
-        # try:
-        #     # print(request.form)
-        #     return render_template('dssconf.html', title="DSS Button", menu=menu, read_dss_button=read_dss_button)
-        #
-        # except Exception:
-        #     logging.exception('')
-        #     return render_template('dssconf.html', title="DSS Button", menu=menu, read_dss_button=read_dss_button)
 
 
     else:
@@ -253,15 +192,8 @@ def dssconf():
 @app.route("/audioconf", methods=["POST", "GET"])
 def audioconf():
     if g.sijax.is_sijax_request:
-        # resp = select_log_ami()
-        # db_select_log_ami = select_log_ami()
-        # obj_response.resp('#progress', resp)
-        # The request looks like a valid Sijax request
-        # Let's register the handlers and tell Sijax to process it
-        # g.sijax.register_comet_callback('do_work', resp)
-        # print(g.sijax.register_comet_callback('do_work', resp))
-        g.sijax.register_comet_callback('do_work', comet_do_work_handler)
-        return g.sijax.process_request()
+       g.sijax.register_comet_callback('do_work', comet_do_work_handler)
+       return g.sijax.process_request()
 
     if request.method == 'POST':
         resp = select_log_ami()
@@ -271,19 +203,6 @@ def audioconf():
         return g.sijax.process_request()
 
 
-    # if request.method == 'POST':
-    #     print(request.form['username'])
-    #     userreq = request.form['username']
-    #
-    #     resp = select_log_ami()
-    #
-    #     # print(url_for('phonebook'))
-    #     # phonebook1 = ad_search_by_objectGuid(str(39800083))
-    #     # phonebook1 = ad_search_all()
-    #     # phonebook_len = len(ad_search_all())
-    #     # print(phonebook1)
-    #     # resp.status_code = 200
-    #     return resp
     else:
 
         print(url_for('audioconf'))
@@ -300,14 +219,6 @@ def about():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    # if 'userLogged' in session:
-    #     return redirect(url_for('profile', username=session['userLogged']))
-    # elif request.method == 'POST' and request.form['username'] == "test" and request.form['pwd'] == "123":
-    #     session['userLogged'] = request.form['username']
-    #     return redirect(url_for('profile', username=session['userLogged']))
-    #
-    # return render_template("login.html", title="User login", menu=menu)
-
     if current_user.is_authenticated:
         return redirect(url_for('profile'))
 
@@ -362,4 +273,4 @@ def background_process():
 
 if __name__ == "__main__":
     # app.run()
-    app.run(host='10.45.3.132')
+    app.run(host='10.45.53.132')
