@@ -1,6 +1,6 @@
-### In development!
+### _In development!_
 
-### Portal for voip equipment support. 
+# Portal for voip equipment support. 
 
 This project consists of several subprojects:
 - home page.
